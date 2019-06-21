@@ -1,4 +1,4 @@
-***KafkaStreamDemo***
+***KafkaStreamDemo2***
 
 Demo program to convert messages to upper case using kafka stream
 
