@@ -1,10 +1,8 @@
-###KafkaStreamDemo
+***KafkaStreamDemo***
 
 Demo program to convert messages to upper case using kafka stream
 
 **Build the project**
-
-cd ./KafkaExperiments/kafkastreamsDemo1
 
 mvn package
 
