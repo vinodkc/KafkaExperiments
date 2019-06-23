@@ -79,7 +79,7 @@ public class KafkaStreamTopologyDemo {
     }
 
     private static void processPurchases(String purchasesTopic, Serde<String> stringSerde, Serde<Purchase> purchaseSerde, KStream<String, Purchase> purchaseKStream) {
-        purchaseKStream.print(Printed.<String, Purchase>toSysOut().withLabel(purchasesTopic)); //for debugging
+       // purchaseKStream.print(Printed.<String, Purchase>toSysOut().withLabel(purchasesTopic)); //for debugging
 
         purchaseKStream.to(purchasesTopic, Produced.with(stringSerde,purchaseSerde));
     }
