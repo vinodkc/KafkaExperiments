@@ -19,12 +19,12 @@ import java.util.regex.Pattern;
 
 public class DataGenerator {
 
-    public static final int NUMBER_UNIQUE_CUSTOMERS = 100;
+    public static final int NUMBER_UNIQUE_CUSTOMERS = 10;
     public static final int NUMBER_UNIQUE_STORES = 15;
     public static final int NUMBER_TEXT_STATEMENTS = 15;
-    public static final int DEFAULT_NUM_PURCHASES = 100;
+    public static final int DEFAULT_NUM_PURCHASES = 10;
     public static final int NUMBER_TRADED_COMPANIES = 50;
-    public static final int NUM_ITERATIONS = 10;
+    public static final int NUM_ITERATIONS = 2;
 
     private static Faker dateFaker = new Faker();
     private static Supplier<Date> timestampGenerator = () -> dateFaker.date().past(15, TimeUnit.MINUTES, new Date());
@@ -92,17 +92,21 @@ public class DataGenerator {
             Customer customer = customers.get(random.nextInt(numberCustomers));
             Store store = stores.get(random.nextInt(NUMBER_UNIQUE_STORES));
 
-            Purchase purchase = Purchase.builder().creditCardNumber(customer.creditCardNumber).customerId(customer.customerId)
-                    .department(store.department).employeeId(store.employeeId).firstName(customer.firstName)
-                    .lastName(customer.lastName).itemPurchased(itemPurchased).quanity(quantity).price(price).purchaseDate(purchaseDate)
-                    .zipCode(store.zipCode).storeId(store.storeId).build();
+            if(customer.firstName != null) {
+
+                Purchase purchase = Purchase.builder().creditCardNumber(customer.creditCardNumber).customerId(customer.customerId)
+                        .department(store.department).employeeId(store.employeeId).firstName(customer.firstName)
+                        .lastName(customer.lastName).itemPurchased(itemPurchased).quanity(quantity).price(price).purchaseDate(purchaseDate)
+                        .zipCode(store.zipCode).storeId(store.storeId).build();
 
 
-            if (purchase.getDepartment().toLowerCase().contains("electronics")) {
-                Purchase cafePurchase = generateCafePurchase(purchase, faker);
-                purchases.add(cafePurchase);
+                if (purchase.getDepartment().toLowerCase().contains("electronics")) {
+                    Purchase cafePurchase = generateCafePurchase(purchase, faker);
+                    purchases.add(cafePurchase);
+                }
+                purchases.add(purchase);
+
             }
-            purchases.add(purchase);
         }
 
         return purchases;

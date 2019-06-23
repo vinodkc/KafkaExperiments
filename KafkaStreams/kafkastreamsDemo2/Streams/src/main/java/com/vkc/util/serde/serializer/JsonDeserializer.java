@@ -66,7 +66,6 @@ public class JsonDeserializer<T> implements Deserializer<T> {
          }
 
          Type deserializeFrom = deserializedClass != null ? deserializedClass : reflectionTypeToken;
-
          return gson.fromJson(new String(bytes),deserializeFrom);
 
     }

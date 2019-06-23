@@ -15,8 +15,10 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 /**
@@ -43,12 +45,16 @@ public class MockDataProducer {
     private static volatile boolean keepRunning = true;
     private static volatile boolean producingIQData = false;
 
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        producePurchaseData();
+        shutdown();
+    }
 
-    public static void producePurchaseData() {
+    public static void producePurchaseData() throws ExecutionException, InterruptedException {
         producePurchaseData(DataGenerator.DEFAULT_NUM_PURCHASES, DataGenerator.NUM_ITERATIONS, DataGenerator.NUMBER_UNIQUE_CUSTOMERS);
     }
 
-    public static void producePurchaseData(int numberPurchases, int numberIterations, int numberCustomers) {
+    public static void producePurchaseData(int numberPurchases, int numberIterations, int numberCustomers) throws ExecutionException, InterruptedException {
         Runnable generateTask = () -> {
             init();
             int counter = 0;
@@ -59,7 +65,7 @@ public class MockDataProducer {
                     ProducerRecord<String, String> record = new ProducerRecord<>(TRANSACTIONS_TOPIC, null, value);
                     producer.send(record, callback);
                 }
-                LOG.info("Record batch sent");
+                LOG.info("Record batch sent:" + purchases.size());
                 try {
                     Thread.sleep(6000);
                 } catch (InterruptedException e) {
@@ -69,7 +75,7 @@ public class MockDataProducer {
             LOG.info("Done generating purchase data");
 
         };
-        executorService.submit(generateTask);
+        executorService.submit(generateTask).get();
     }
 
    /* public static void produceStockTransactions(int numberIterations) {

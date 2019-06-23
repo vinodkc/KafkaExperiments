@@ -1,21 +1,18 @@
-***KafkaStreamDemo2***
+***KafkaStreamDemo2*** : Based on kafka-streams-in-action book
 
-Demo program to convert messages to upper case using kafka stream
+Demo program to build a demo topology
 
 **Build the project**
 
 mvn package
 
+**Create following Kafka topics**
+
+`./bin/kafka-topics.sh  --zookeeper  localhost:2181 --create --topic transactions  --partitions 6 --replication-factor 1`
+`./bin/kafka-topics.sh  --zookeeper  localhost:2181 --create --topic patterns  --partitions 6 --replication-factor 1`
+`./bin/kafka-topics.sh  --zookeeper  localhost:2181 --create --topic rewards  --partitions 6 --replication-factor 1`
+`./bin/kafka-topics.sh  --zookeeper  localhost:2181 --create --topic purchases  --partitions 6 --replication-factor 1`
+
 **Run**
 
-`java -jar ./target/kafkastreamsDemo1-1.0-SNAPSHOT-jar-with-dependencies.jar localhost:9092  sourcetopic  destTopic`
-
-
-**Produce some data to source topic**
-
-`./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic sourcetopic`
-
-
-**Consume from  desttopic**
-
-`./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic destTopic`
+ToDo

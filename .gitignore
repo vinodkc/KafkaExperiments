@@ -1,4 +1,5 @@
 *.iml
+*.log
 target/
 .idea/
 krb5.conf
