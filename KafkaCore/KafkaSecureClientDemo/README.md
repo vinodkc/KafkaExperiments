@@ -6,7 +6,7 @@ java -Djava.security.auth.login.config=./kafka_client_jaas.conf -Djava.security.
 
 2) SASL Consumer Demo:
 
-java -Djava.security.auth.login.config=./kafka_consumer_jaas.conf -Djava.security.krb5.conf=./krb5.conf -cp ./target/KafkaSecureClientDemo-1.0-SNAPSHOT-jar-th-dependencies.jar com.vkc.SecureConsumer  testacl hdp265secure3.openstacklocal:6667
+java -Djava.security.auth.login.config=./kafka_consumer_jaas.conf -Djava.security.krb5.conf=./krb5.conf -cp ./target/KafkaSecureClientDemo-1.0-SNAPSHOT-jar-with-dependencies.jar com.vkc.SecureConsumer  testacl hdp265secure3.openstacklocal:6667
 
 
 3)SASL_SSL Producer Demo:
